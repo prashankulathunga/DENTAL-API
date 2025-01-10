@@ -124,4 +124,4 @@ const deleteAppointment = async (req, res) => {
 
 
 
-export default { saveAppointment, getAppointment, updateAppointment, deleteAppointment };
+export default { saveAppointment, getAppointment, updateAppointment, deleteAppointment }; 

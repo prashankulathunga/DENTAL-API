@@ -5,7 +5,7 @@ import AdminRoute from './route/admin/AdminRoute.js';
 import UserManagementRoute from './route/admin/UserManagementRoute.js';
 import AppointmentRoute from './route/admin/AppointmentRoute.js';
 import ScheduleRoute from './route/admin/scheduleRoute.js';
-
+import ClinicRoute from './route/admin/clinicRoute.js';
 
 // Load environment variables
 dotenv.config();
@@ -39,3 +39,4 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   app.use('/api/v1/admin/user', UserManagementRoute);
   app.use('/api/v1/admin/appointment', AppointmentRoute);
   app.use('/api/v1/admin/schedule', ScheduleRoute);
+  app.use('/api/v1/admin/clinic', ClinicRoute);
