@@ -1,31 +1,34 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const AppointmentSchema = mongoose.Schema({
-    patientName: {
-        type: String,
-        required: true
-    },
-    patientEmail: {
-        type: String,
-        required: true
-    },
-    doctorName: {
-        type: String,
-        required: true
-    },
-    appointmentDate: {
-        type: Date,
-        required: true
-    },
-    appointmentTime: {
-        type: String,
-        required: true
-    },
-    services: String,
-    note: String
-}) 
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  services: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "services", // Reference to the Doctor model
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+  time: {
+    type: String,
+    required: true,
+  },
+  notes: String,
+});
 
-
-const Appointment = mongoose.model('Appointment', AppointmentSchema);
+const Appointment = mongoose.model("Appointment", AppointmentSchema);
 
 export default Appointment;

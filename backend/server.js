@@ -1,11 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import AdminRoute from './route/admin/AdminRoute.js';
-import UserManagementRoute from './route/admin/UserManagementRoute.js';
-import AppointmentRoute from './route/admin/AppointmentRoute.js';
-import ScheduleRoute from './route/admin/scheduleRoute.js';
-import ClinicRoute from './route/admin/clinicRoute.js';
+import cors from "cors";
+import AdminRoute from "./route/admin/AdminRoute.js";
+import UserManagementRoute from "./route/admin/UserManagementRoute.js";
+import AppointmentRoute from "./route/admin/AppointmentRoute.js";
+import ScheduleRoute from "./route/admin/scheduleRoute.js";
+import ClinicRoute from "./route/admin/clinicRoute.js";
+import ServiceRoute from "./route/admin/servicesRoute.js";
 
 // Load environment variables
 dotenv.config();
@@ -15,28 +17,32 @@ const app = express();
 
 // Middleware for parsing JSON
 app.use(express.json());
-
+app.use(cors());
 // Simple route
-app.get('/', (req, res) => {
-  res.send('Test API Success');
+app.get("/", (req, res) => {
+  res.send("Test API Success");
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
-    console.log('Connected to MongoDB');
+    console.log("Connected to MongoDB");
     app.listen(port, () => {
       console.log(`API started & running on port ${port}`);
     });
   })
   .catch((error) => {
-    console.error('Failed to connect to MongoDB:', error.message);
+    console.error("Failed to connect to MongoDB:", error.message);
     process.exit(1);
   });
 
-
-  app.use('/api/v1/admin/start', AdminRoute);
-  app.use('/api/v1/admin/user', UserManagementRoute);
-  app.use('/api/v1/admin/appointment', AppointmentRoute);
-  app.use('/api/v1/admin/schedule', ScheduleRoute);
-  app.use('/api/v1/admin/clinic', ClinicRoute);
+app.use("/api/v1/admin/start", AdminRoute);
+app.use("/api/v1/admin/user", UserManagementRoute);
+app.use("/api/v1/admin/appointment", AppointmentRoute);
+app.use("/api/v1/admin/schedule", ScheduleRoute);
+app.use("/api/v1/admin/clinic", ClinicRoute);
+app.use("/api/v1/admin/service", ServiceRoute);
